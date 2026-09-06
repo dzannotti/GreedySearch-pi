@@ -167,7 +167,7 @@ function getPortPid(port) {
 			return match ? Number.parseInt(match[1], 10) : null;
 		}
 		const out = execSync(
-			String.raw`lsof -i :${port} -t 2>/dev/null || ss -tlnp 2>/dev/null | grep :${port} | grep -oP 'pid=\K\d+'`,
+			String.raw`lsof -i :${port} -t 2>/dev/null || ss -tlnp 2>/dev/null | grep ":${port}" | grep -oE 'pid=[0-9]+' | grep -oE '[0-9]+' | head -1`,
 			{
 				encoding: "utf8",
 			},
